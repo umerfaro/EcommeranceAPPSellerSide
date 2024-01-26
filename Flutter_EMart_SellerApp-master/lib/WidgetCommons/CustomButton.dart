@@ -13,7 +13,7 @@ Widget customButtonWidget({
 
     style: ElevatedButton.styleFrom(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(3),
+        borderRadius: BorderRadius.circular(8),
       ),
       backgroundColor: color,
       padding: const EdgeInsets.all(15),

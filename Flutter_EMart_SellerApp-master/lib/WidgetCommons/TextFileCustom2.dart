@@ -1,16 +1,15 @@
 import "package:emart_seller/const/const.dart";
 
-Widget customTextFormField(
+Widget customTextFormField2(
     {String? title,
-    String? hint,
-    bool? isPassword,
+      String? hint,
       BuildContext? context,
-       FocusNode? myFocusNode,
-        FormFieldSetter? onFiledSubmittedValue,
+      FocusNode? myFocusNode,
+      FormFieldSetter? onFiledSubmittedValue,
       FormFieldValidator? onValidateValue,
       TextEditingController? controller,
       bool? autoFocus= false,
-      icon,
+
 
     }) {
   return Column(
@@ -21,16 +20,14 @@ Widget customTextFormField(
       onTapOutside: (event) {
         FocusScope.of(context!).unfocus();
       },
-maxLines: 1,
+      maxLines: 4,
 
 
       controller: controller,
       onFieldSubmitted: onFiledSubmittedValue,
       validator: onValidateValue,
       autofocus: autoFocus!,
-      obscureText: isPassword!,
       decoration: InputDecoration(
-        prefixIcon: icon=="password"?const Icon(Icons.lock,color: purpleColor,):icon=="email"? const Icon(Icons.email,color: purpleColor,):null,
         contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
         hintText: hint,
         isDense: true,
