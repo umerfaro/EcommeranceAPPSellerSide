@@ -6,4 +6,6 @@
 class AssetsRes {
   static const String PLUGIN_NAME = 'emart_seller';
   static const String PLUGIN_VERSION = '1.0.0+1';
+  static const String IC_LOGO = 'assets/icons/ic_logo.png';
+  static const String SPLASH_LOGIN_REGISTRATION_BACKGROUND_IMAGE = 'assets/icons/splash_login_registration_background_image.png';
 }

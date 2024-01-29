@@ -1,4 +1,5 @@
 import 'package:emart_seller/const/const.dart';
+import 'package:emart_seller/views/SplashScreen/SplashScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'views/auth_screen/login_screen.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
           ),
           fontFamily: regular
       ),
-      home: const LoginScreen(),
+      home: const SplashScreen(),
     );
   }
 }

@@ -71,7 +71,6 @@ class ProductDetails extends StatelessWidget {
                         size: 16.0,
                         color: fontGrey,
                       )
-
                     ],
                   ),
                   10.heightBox,
@@ -109,13 +108,12 @@ class ProductDetails extends StatelessWidget {
                       Row(
                         children: [
                           SizedBox(
-                            width: 100,
-                            child: boldText(
-                              text: "Color:",
-                              size: 16.0,
-                              color: darkFontGrey,
-                            )
-                          ),
+                              width: 100,
+                              child: boldText(
+                                text: "Color:",
+                                size: 16.0,
+                                color: darkFontGrey,
+                              )),
                           Row(
                             children: List.generate(
                               3,
@@ -137,16 +135,14 @@ class ProductDetails extends StatelessWidget {
                       ).box.padding(const EdgeInsets.all(8)).make(),
                       // quantity
                       Row(
-
                         children: [
                           SizedBox(
-                            width: 100,
-                            child:boldText(
-                              text: "Quantity:",
-                              size: 16.0,
-                              color: darkFontGrey,
-                            )
-                          ),
+                              width: 100,
+                              child: boldText(
+                                text: "Quantity:",
+                                size: 16.0,
+                                color: darkFontGrey,
+                              )),
                           normalText(
                             text: "1",
                             size: 16.0,
@@ -171,8 +167,7 @@ class ProductDetails extends StatelessWidget {
                     size: 12.0,
                     color: fontGrey,
                   ),
-10.heightBox,
-
+                  10.heightBox,
                 ],
               ),
             ),

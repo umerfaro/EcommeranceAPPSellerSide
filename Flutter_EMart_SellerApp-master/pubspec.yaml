@@ -74,6 +74,8 @@ flutter:
   assets:
     - assets/
     - assets/icons/
+    - assets/icons/ic_logo.png
+    - assets/icons/splash_login_registration_background_image.png
     - lib/services/category_model.json
   #   - images/a_dot_ham.jpeg
 

@@ -1,16 +1,50 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emart_seller/WidgetCommons/NormalText.dart';
-import 'package:emart_seller/WidgetCommons/appBar.dart';
 import 'package:emart_seller/const/const.dart';
+import 'package:emart_seller/services/StoreServices.dart';
 import 'package:emart_seller/views/Settings/EditScreen.dart';
 import 'package:emart_seller/views/ShopSettings/ShopSettings.dart';
 import 'package:emart_seller/views/message/MessageScreen.dart';
 import 'package:get/get.dart';
-class SettingScreen extends StatelessWidget {
+
+import '../../Controller/authController.dart';
+import '../../Controller/profileController.dart';
+import '../../Services/Session manager.dart';
+import '../../Utils/Utils.dart';
+import '../../WidgetCommons/CustomButton.dart';
+import '../../WidgetCommons/LoadingIndicator.dart';
+import '../auth_screen/login_screen.dart';
+class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
 
   @override
+  State<SettingScreen> createState() => _SettingScreenState();
+}
+
+class _SettingScreenState extends State<SettingScreen> {
+
+  var profileController = Get.put(ProfileController());
+
+  @override
   Widget build(BuildContext context) {
+
     return  Scaffold(
+      bottomNavigationBar: SizedBox(
+        width: context.screenWidth - 40,
+        child: customButtonWidget(
+          onPress: () async {
+            await Get.put(AuthController()).signOutMethod();
+            Utils.toastMessage(logOut);
+            SessionController().logout();
+
+            Get.offAll(()=> const LoginScreen());
+          },
+          title: "Logout",
+          textColor: white,
+          color: purpleColor,
+        ),
+      ),
       backgroundColor: white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -26,77 +60,110 @@ class SettingScreen extends StatelessWidget {
             TextButton(
               onPressed: (){
                 // Get.toNamed(editProfile);
-                Get.to(()=> EditProfileScreen());
+
+                Get.to(()=>  EditProfileScreen(
+                  username: profileController.snapshotData['vendor_name'].toString(),
+                ));
               },
-              child: Icon(Icons.edit,color: fontGrey,),
+              child: const Icon(Icons.edit,color: fontGrey,),
 
           ),
           10.widthBox,
         ],
+
       ),
-      body: Column(
-       children: [
-         ListTile(
-           leading: Image.asset(imgProduct).box.roundedFull.clip(Clip.antiAlias).make(),
-           title: boldText(
-             text: vendorName,
-             size: 16.0,
-             color: darkGrey,
-           ),
-           subtitle: normalText(
-             text: "vendorEmail",
-             size: 12.0,
-             color: fontGrey,
-           ),
+
+      body: StreamBuilder(
+        stream:StoreServices.getProfile(SessionController().userId),
+        builder: (BuildContext context,AsyncSnapshot<QuerySnapshot>  snapshot ){
+
+          if(!snapshot.hasData)
+            {
+              return Center(child: loadingIndicator());
+            }
+          else {
+            profileController.snapshotData = snapshot.data!.docs[0];
+            return Column(
+              children: [
+                ListTile(
+                  leading:  profileController.snapshotData['imageUrl'].toString() == ""
+                ? Image.asset(
+                    imgProduct,
+              width: 70,
+              fit: BoxFit.cover,
+            ).box.roundedFull.clip(Clip.antiAlias).make()
+                : CachedNetworkImage(
+              imageUrl:  profileController.snapshotData['imageUrl'].toString(),
+              width: 70,
+              fit: BoxFit.cover,
+            ).box.roundedFull.clip(Clip.antiAlias).make(),
+
+                  //leading: Image.asset(imgProduct).box.roundedFull.clip(Clip.antiAlias).make(),
+                  title: boldText(
+                    text: profileController.snapshotData['vendor_name'].toString(),
+                    size: 16.0,
+                    color: darkGrey,
+                  ),
+                  subtitle: normalText(
+                    text: profileController.snapshotData['email'].toString(),
+                    size: 12.0,
+                    color: fontGrey,
+                  ),
 
 
-         ),
-         Divider(),
-         10.heightBox,
-         Padding(
-           padding: const EdgeInsets.all(8.0),
-           child: Column(
-             children:List.generate(profileButtonListTitles.length, (index) => ListTile(
-                onTap: (){
-
-                  switch(index)
-                      {
-                      case 0:
-                      {
-                        // Get.toNamed(editProfile);
-                        Get.to(()=> Shopsetting());
-                        break;
-                      }
-                    case 1:
-                      {
-                        // Get.toNamed(editProfile);
-                        Get.to(()=> MessagesScreen());
-                        break;
-                      }
-
-                    default:
-                      {
-                        //statements;
-                        break;
-                      }
-
-                  }
-
-                },
-                leading: Icon(profileButtonListIcons[index],color: fontGrey,),
-                title: boldText(
-                  text: profileButtonListTitles[index],
-                  size: 16.0,
-                  color: darkGrey,
                 ),
-                trailing: const Icon(Icons.arrow_forward_ios,color: fontGrey,),
+                Divider(),
+                10.heightBox,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children:List.generate(profileButtonListTitles.length, (index) => ListTile(
+                      onTap: (){
 
-             )),
-           ),
-         )
+                        switch(index)
+                        {
+                          case 0:
+                            {
+                              // Get.toNamed(editProfile);
+                              Get.to(()=> Shopsetting());
+                              break;
+                            }
+                          case 1:
+                            {
+                              // Get.toNamed(editProfile);
+                              Get.to(()=> MessagesScreen());
+                              break;
+                            }
 
-       ],
-      ),
+                          default:
+                            {
+                              //statements;
+                              break;
+                            }
+
+                        }
+
+                      },
+                      leading: Icon(profileButtonListIcons[index],color: fontGrey,),
+                      title: boldText(
+                        text: profileButtonListTitles[index],
+                        size: 16.0,
+                        color: darkGrey,
+                      ),
+                      trailing: const Icon(Icons.arrow_forward_ios,color: fontGrey,),
+
+                    )),
+                  ),
+                )
+
+              ],
+            );
+
+
+          }
+
+        },
+      )
     );
   }
 }

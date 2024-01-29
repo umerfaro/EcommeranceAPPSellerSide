@@ -1,3 +1,4 @@
+import "package:emart_seller/Controller/authController.dart";
 import "package:emart_seller/WidgetCommons/CustomButton.dart";
 import "package:emart_seller/WidgetCommons/CustomTextFormField.dart";
 import "package:emart_seller/WidgetCommons/NormalText.dart";
@@ -5,23 +6,16 @@ import "package:emart_seller/const/const.dart";
 import "package:emart_seller/views/Home/Home.dart";
 import "package:get/get.dart";
 
+
 import "../../Utils/Utils.dart";
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
 
-class _LoginScreenState extends State<LoginScreen> {
-
-  final emailFocusNode = FocusNode();
-  final passwordFocusNode = FocusNode();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+  var controller= Get.put(AuthController());
     return   SafeArea(
       child: Scaffold(
 
@@ -62,83 +56,107 @@ class _LoginScreenState extends State<LoginScreen> {
          color: lightGrey,
      ),
             10.heightBox,
-            Column(
-            children: [
-              customTextFormField(
-                icon: "email",
-                title: email,
-                hint: emailHint,
-                isPassword: false,
-                context: context,
-                controller: emailController,
-                myFocusNode: emailFocusNode,
-                onFiledSubmittedValue: (value) {
-                  Utils.fieldFocus(
-                    context,
-                    emailFocusNode,
-                    passwordFocusNode,
-                  );
-                },
-                onValidateValue: (value) {
-                  return value.isEmpty ? 'Please enter your email' : null;
-                },
-              ),
-              10.heightBox,
-              customTextFormField(
-                icon: "password",
-                title: password,
-                hint: passwordHint,
-                isPassword: true,
-                context: context,
-                controller: passwordController,
-                myFocusNode: passwordFocusNode,
-                onFiledSubmittedValue: (value) {
-                  Utils.fieldFocus(
-                    context,
-                    passwordFocusNode,
-                    passwordFocusNode,
-                  );
-                },
-                onValidateValue: (value) {
-                  return value.isEmpty ? 'Please enter your email' : null;
-                },
-              ),
-               10.heightBox,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+            Form(
+              key: controller.logInFormKey,
+              child: Obx(
+                ()=> Column(
                 children: [
-                  TextButton(
-
-                    onPressed: () {},
-                    child: normalText(
-                      text: forgotPassword,
-                      size: 14.0,
-                      color: purpleColor,
-                    ),
+                  customTextFormField(
+                    icon: "email",
+                    title: email,
+                    hint: emailHint,
+                    isPassword: false,
+                    context: context,
+                    controller: controller.emailController,
+                    myFocusNode: controller.emailFocusNode,
+                    onFiledSubmittedValue: (value) {
+                      Utils.fieldFocus(
+                        context,
+                        controller.emailFocusNode,
+                        controller.passwordFocusNode,
+                      );
+                    },
+                    onValidateValue: (value) {
+                      return value.isEmpty ? 'Please enter your email' : null;
+                    },
                   ),
+                  10.heightBox,
+                  customTextFormField(
+                    icon: "password",
+                    title: password,
+                    hint: passwordHint,
+                    isPassword: true,
+                    context: context,
+                    controller: controller.passwordController,
+                    myFocusNode: controller.passwordFocusNode,
+                    onFiledSubmittedValue: (value) {
+                      Utils.fieldFocus(
+                        context,
+                        controller.passwordFocusNode,
+                        controller.passwordFocusNode,
+                      );
+                    },
+                    onValidateValue: (value) {
+                      return value.isEmpty ? 'Please enter your email' : null;
+                    },
+                  ),
+                   10.heightBox,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+
+                        onPressed: () {},
+                        child: normalText(
+                          text: forgotPassword,
+                          size: 14.0,
+                          color: purpleColor,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  20.heightBox,
+                  SizedBox(
+                    width: context.screenWidth-100,
+                    child: customButtonWidget(
+                      loading: controller.loginButtonEnable.value,
+                     onPress: ()async {
+                       if (controller.logInFormKey.currentState!.validate())
+                       {
+
+
+                         await controller.loginMethod().then((value)
+                         {
+                           if (value != null) {
+                             Utils.toastMessage(loginSuccess);
+
+                             Get.offAll(() => const Home());
+                             controller.loginButtonEnable.value = false;
+
+
+                           } else {
+                             controller.loginButtonEnable.value = false;
+                             Utils.toastMessage(loginFailed);
+                           }
+                         }).onError((error, stackTrace) => Utils.toastMessage(error.toString()));
+
+                       }
+                     },
+                      title: login,
+                      textColor: white,
+                      color: purpleColor,
+
+
+                    ),
+                  )
+
+
                 ],
+
+                ).box.white.rounded.outerShadowMd.padding(EdgeInsets.all(50)).make(),
               ),
-
-              20.heightBox,
-              SizedBox(
-                width: context.screenWidth-100,
-                child: customButtonWidget(
-                 onPress: (){
-                   Get.to(()=>const Home());
-
-                 },
-                  title: login,
-                  textColor: white,
-                  color: purpleColor,
-
-
-                ),
-              )
-
-
-            ],
-
-            ).box.white.rounded.outerShadowMd.padding(EdgeInsets.all(50)).make(),
+            ),
 
              10.heightBox,
             Center(

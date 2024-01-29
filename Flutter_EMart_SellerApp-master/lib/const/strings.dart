@@ -55,6 +55,13 @@ productImageHint= "Enter your Product Image",
 productSubcategory= "Product Subcategory",
 productSubcategoryHint= "Enter your Product Subcategory",
     shopMobile= "Shop Mobile Number";
-
+const logOut="User logout Successfully";
+const loginSuccess="User Login Successfully";
+const loginFailed="User Login Failed";
+const appversion = "Version 1.0.0";
+const credits = "@UmerFarooq";
+const update="Update";
+const camera="Camera";
+const gallery="Gallery";
 
 

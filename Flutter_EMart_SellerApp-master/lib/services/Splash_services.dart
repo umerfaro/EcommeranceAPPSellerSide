@@ -5,9 +5,9 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-
-
+import 'package:get/get.dart';
+import '../views/Home/Home.dart';
+import '../views/auth_screen/login_screen.dart';
 import 'Session manager.dart';
 
 class SplashServices {
@@ -20,16 +20,18 @@ class SplashServices {
       if (user != null) {
 
         SessionController().userId = user.uid.toString();
+        print("Hello");
+        print(SessionController().userId);
         await Future.delayed(const Duration(seconds: 3));
         if(context.mounted)
           {
-           // Get.offAll(() => const Home());
+            Get.offAll(() => const Home());
           }
       }
       else {
         await Future.delayed(const Duration(seconds: 3));
         if(context.mounted) {
-         // Get.offAll(() => const LoginScreen());
+         Get.offAll(() => const LoginScreen());
         }
       }
     } catch (e) {
