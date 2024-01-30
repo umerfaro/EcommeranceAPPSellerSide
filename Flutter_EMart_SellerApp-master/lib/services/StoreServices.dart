@@ -16,6 +16,12 @@ static getAllMessages(uid) {
   return firestore.collection(chatCollections).where("toId",isEqualTo: uid).snapshots();
 }
 
+//get all orders
+
+static getAllOrders(uid) {
+  return firestore.collection(orderCollections).where("vendors",arrayContains: uid).snapshots();
+}
+
 
 // //get all chat messages
 // static getChatMessages(docId)
