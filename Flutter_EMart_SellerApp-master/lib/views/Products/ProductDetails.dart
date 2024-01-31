@@ -4,7 +4,8 @@ import 'package:emart_seller/WidgetCommons/NormalText.dart';
 import 'package:emart_seller/const/const.dart';
 
 class ProductDetails extends StatelessWidget {
-  const ProductDetails({super.key});
+  final dynamic data;
+  const ProductDetails({super.key, this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class ProductDetails extends StatelessWidget {
       backgroundColor: white,
       appBar: AppBar(
         title: boldText(
-          text: "Product Name",
+          text: data['p_name'],
           size: 16.0,
           color: fontGrey,
         ),
@@ -26,11 +27,10 @@ class ProductDetails extends StatelessWidget {
               aspectRatio: 16 / 9,
               autoPlay: true,
               height: 350,
-              itemCount: 3, //data['p_images'].length,
+              itemCount: data['p_images'].length,
               itemBuilder: (context, index) {
                 return CachedNetworkImage(
-                  imageUrl:
-                      "https://cdn.pixabay.com/photo/2015/06/22/08/40/child-817373_1280.jpg", //data["p_images"][index],
+                  imageUrl: data["p_images"][index],
                   width: double.infinity,
                   fit: BoxFit.fill,
                   placeholder: (context, url) => Center(
@@ -52,7 +52,7 @@ class ProductDetails extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   boldText(
-                    text: "Product Name",
+                    text: data['p_name'],
                     size: 16.0,
                     color: darkGrey,
                   ),
@@ -61,13 +61,13 @@ class ProductDetails extends StatelessWidget {
                   Row(
                     children: [
                       boldText(
-                        text: "Category",
+                        text: data['p_category'],
                         size: 16.0,
                         color: darkFontGrey,
                       ),
                       10.widthBox,
                       normalText(
-                        text: "SubCategory",
+                        text: data['p_subcategory'],
                         size: 16.0,
                         color: fontGrey,
                       )
@@ -78,8 +78,7 @@ class ProductDetails extends StatelessWidget {
                   Row(
                     children: [
                       VxRating(
-                        value: 3.0,
-                        //  double.parse(data['p_rating'].toString()),
+                        value: double.parse(data['p_rating'].toString()),
                         onRatingUpdate: (value) {},
                         normalColor: textfieldGrey,
                         selectionColor: golden,
@@ -91,14 +90,14 @@ class ProductDetails extends StatelessWidget {
                       ),
                       5.widthBox,
                       normalText(
-                        text: "(2)",
+                        text: data['p_rating'].toString(),
                         size: 12.0,
                         color: darkFontGrey,
                       ),
                     ],
                   ),
                   boldText(
-                    text: "Rs 400",
+                    text: data['p_price'],
                     size: 16.0,
                     color: red,
                   ),
@@ -116,12 +115,11 @@ class ProductDetails extends StatelessWidget {
                               )),
                           Row(
                             children: List.generate(
-                              3,
-                              //data['p_colors'].length,
+                              data['p_colors'].length,
                               (index) => VxBox()
                                   .size(40, 40)
                                   .roundedFull
-                                  .color(Vx.randomPrimaryColor)
+                                  .color(Color(data['p_colors'][index]))
                                   .margin(
                                       const EdgeInsets.symmetric(horizontal: 4))
                                   .make()
@@ -144,7 +142,8 @@ class ProductDetails extends StatelessWidget {
                                 color: darkFontGrey,
                               )),
                           normalText(
-                            text: "1",
+
+                            text: data['p_quantity'],
                             size: 16.0,
                             color: fontGrey,
                           )
@@ -162,9 +161,8 @@ class ProductDetails extends StatelessWidget {
                   ),
                   10.heightBox,
                   normalText(
-                    text:
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl eget fermentum aliquam, nibh nibh aliquet nunc, eget aliquam nisl nunc eget nibh. Nulla euismod, nisl eget fermentum aliquam, nibh nibh aliquet nunc, eget aliquam nisl nunc eget nibh.",
-                    size: 12.0,
+                    text: data['p_description'],
+                    size: 13.0,
                     color: fontGrey,
                   ),
                   10.heightBox,

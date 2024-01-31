@@ -23,11 +23,18 @@ static getAllOrders(uid) {
 }
 
 
-// //get all chat messages
-// static getChatMessages(docId)
-// {
-//   return firestore.collection(chatCollections).doc(docId).collection(messageCollections).orderBy('created_on',descending: false).snapshots();
-// }
+  //get products data
+  static getProducts(uid){
+    return firestore.collection(productCollections).where('vendor_id',isEqualTo: uid).snapshots();
+
+  }
+
+
+  //get all chat messages
+  static getChatMessages(docId)
+  {
+    return firestore.collection(chatCollections).doc(docId).collection(messageCollections).orderBy('created_on',descending: false).snapshots();
+  }
 
 
 //   //get products data

@@ -3,13 +3,18 @@ import 'package:emart_seller/WidgetCommons/NormalText.dart';
 import 'package:emart_seller/WidgetCommons/TextFileCustom2.dart';
 import 'package:emart_seller/const/const.dart';
 import 'package:emart_seller/views/message/Compoents/productImages.dart';
+import 'package:get/get.dart';
 
+import '../../Controller/product_Controller.dart';
+import '../../Utils/Utils.dart';
 import 'components/productDropdown.dart';
 class AddProduct extends StatelessWidget {
   const AddProduct({super.key});
 
   @override
   Widget build(BuildContext context) {
+
+    var controller= Get.find<ProductController>();
     return  SafeArea(
       
       child: Scaffold(
@@ -37,130 +42,163 @@ class AddProduct extends StatelessWidget {
         ),
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-                
-              customTextFormField(
-                title: productname,
-                hint: productnameHint,
-                isPassword: true,
-                context: context,
-                //  controller: passwordController,
-                // myFocusNode: passwordFocusNode,
-                onFiledSubmittedValue: (value) {
-                  // Utils.fieldFocus(
-                  //   context,
-                  //   passwordFocusNode,
-                  //   passwordFocusNode,
-                  // );
-                },
-                onValidateValue: (value) {
-                  return value.isEmpty ? 'Please enter your email' : null;
-                },
-              ),
-              customTextFormField2(
-                title: productDes,
-                hint: productDesHint,
-                context: context,
-                //  controller: passwordController,
-                // myFocusNode: passwordFocusNode,
-                onFiledSubmittedValue: (value) {
-                  // Utils.fieldFocus(
-                  //   context,
-                  //   passwordFocusNode,
-                  //   passwordFocusNode,
-                  // );
-                },
-                onValidateValue: (value) {
-                  return value.isEmpty ? 'Please enter your email' : null;
-                },
-              ),
-              customTextFormField(
-                title: productPrice,
-                hint: productPriceHint,
-                isPassword: true,
-                context: context,
-                //  controller: passwordController,
-                // myFocusNode: passwordFocusNode,
-                onFiledSubmittedValue: (value) {
-                  // Utils.fieldFocus(
-                  //   context,
-                  //   passwordFocusNode,
-                  //   passwordFocusNode,
-                  // );
-                },
-                onValidateValue: (value) {
-                  return value.isEmpty ? 'Please enter your email' : null;
-                },
-              ),
-          
-              customTextFormField(
-                title: productQuantity,
-                hint: productQuantityHint,
-                isPassword: true,
-                context: context,
-                //  controller: passwordController,
-                // myFocusNode: passwordFocusNode,
-                onFiledSubmittedValue: (value) {
-                  // Utils.fieldFocus(
-                  //   context,
-                  //   passwordFocusNode,
-                  //   passwordFocusNode,
-                  // );
-                },
-                onValidateValue: (value) {
-                  return value.isEmpty ? 'Please enter your email' : null;
-                },
-              ),
-              10.heightBox ,
-              productDropdown(),
-              10.heightBox ,
-              productDropdown(),
-              Divider(),
-              10.heightBox ,
-              boldText(
-                text: productImage,
-                color: fontGrey,
-              ),
-              10.heightBox ,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children:List.generate(3, (index) => productImages(
-                  lable: "${index+1}",
-                )),
-              ),
-              10.heightBox ,
-              normalText(
-                text: "First Image will be your main image",
-                color: fontGrey,
-              ),
+          child: Form(
+            key: controller.productFormKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
 
-              Divider(),
-              10.heightBox ,
-              boldText(
-                text: "Choose product Colors",
-                color: fontGrey,
-              ),
-              10.heightBox ,
-              Wrap(
-                spacing: 10.0,
-                runSpacing: 10.0,
-                children: List.generate(9,(index) => Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    VxBox().color(Vx.randomPrimaryColor).roundedFull.size(50,50).make(),
-                    const Icon(Icons.done,color: white,),
-                  ],
-                )
+                customTextFormField(
+                  title: productname,
+                  hint: productnameHint,
+                  isPassword: true,
+                  context: context,
+                   controller: controller.pdecController,
+                   myFocusNode: controller.pnameFocusNode,
+                  onFiledSubmittedValue: (value) {
+                    Utils.fieldFocus(
+                      context,
+                      controller.pnameFocusNode,
+                      controller.pdecFocusNode,
+                    );
+                  },
+                  onValidateValue: (value) {
+                    return value.isEmpty ? 'Please enter your Product Name' : null;
+                  },
                 ),
-              )
+                customTextFormField2(
+                  title: productDes,
+                  hint: productDesHint,
+                  context: context,
+                  controller: controller.pdecController,
+                   myFocusNode: controller.pdecFocusNode,
+                  onFiledSubmittedValue: (value) {
+                    Utils.fieldFocus(
+                      context,
+                      controller.pdecFocusNode,
+                      controller.pPriceFocusNode,
+                    );
+                  },
+                  onValidateValue: (value) {
+                    return value.isEmpty ? 'Please enter your Some Product Description' : null;
+                  },
+                ),
+                customTextFormField(
+                  title: productPrice,
+                  hint: productPriceHint,
+                  isPassword: true,
+                  context: context,
+                   controller: controller.pPriceController,
+                   myFocusNode: controller.pPriceFocusNode,
+                  onFiledSubmittedValue: (value) {
+                    Utils.fieldFocus(
+                      context,
+                      controller.pPriceFocusNode,
+                      controller.pQuntityFocusNode,
+                    );
+                  },
+                  onValidateValue: (value) {
+                    return value.isEmpty ? 'Please enter your Product Price' : null;
+                  },
+                ),
+
+                customTextFormField(
+                  title: productQuantity,
+                  hint: productQuantityHint,
+                  isPassword: true,
+                  context: context,
+                   controller: controller.pQuntityController,
+                  myFocusNode: controller.pQuntityFocusNode,
+                  onFiledSubmittedValue: (value) {
+                    Utils.fieldFocus(
+                      context,
+                      controller.pQuntityFocusNode,
+                      controller.pQuntityFocusNode,
+                    );
+                  },
+                  onValidateValue: (value) {
+                    return value.isEmpty ? 'Please enter your Product Quantity' : null;
+                  },
+                ),
+                10.heightBox ,
+                productDropdown(
+                  "Category",
+                  controller.categoryList,
+                  controller.categoryvalue,
+                    controller
+                ),
+                10.heightBox ,
+                productDropdown(
+                  "subCategory",
+                  controller.subcategoryList,
+                  controller.subCategoryvalue,
+                  controller
+                ),
+                Divider(),
+                10.heightBox ,
+                boldText(
+                  text: productImage,
+                  color: fontGrey,
+                ),
+                10.heightBox ,
+                Obx(
+                  ()=> Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+
+                    children:List.generate(3, (index) =>
+                        controller.pImagesList[index]!=null?Image.file(controller.pImagesList[index]
+                        ,width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        ).onTap(() {
+                          controller.picImages(index, context);
 
 
-          
-          
-                
-            ],
+                        }) :
+                        productImages(
+                      lable: "${index+1}").onTap(() {
+                      controller.picImages(index, context);
+                      })
+                    ),
+                  ),
+                ),
+                10.heightBox ,
+                normalText(
+                  text: "First Image will be your main image",
+                  color: fontGrey,
+                ),
+
+                Divider(),
+                10.heightBox ,
+                boldText(
+                  text: "Choose product Colors",
+                  color: fontGrey,
+                ),
+                10.heightBox ,
+                Obx(
+                  ()=> Wrap(
+                    spacing: 10.0,
+                    runSpacing: 10.0,
+                    children: List.generate(9,(index) => Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        VxBox().color(Vx.randomPrimaryColor).roundedFull.size(50,50).make().onTap(() {
+                          controller.selectedColorIndex.value=index;
+                        }),
+                        controller.selectedColorIndex.value== index?
+                        const Icon(Icons.done,color: white,):SizedBox()
+                      ],
+                    )
+                    ),
+                  ),
+                )
+
+
+
+
+
+              ],
+            ),
           ),
         ),
       ),

@@ -3,72 +3,111 @@
         {
             "name": "Women Dress",
             "subcategory": [
-                "Wedding & Event",
-                "Tops & Sets",
-                "Watches"
+                "Casual Dresses",
+                "Formal Dresses",
+                "Accessories",
+                "New Arrivals",
+                "Seasonal Collections",
+                "Sale Items"
             ]
         },
         {
             "name": "Men Clothing & Fashion",
             "subcategory": [
-                "Outwear & Jackets",
-                "Formal Dress",
-                "Accessories"
+                "Casual Wear",
+                "Formal Wear",
+                "Accessories",
+                "New Arrivals",
+                "Seasonal Collections",
+                "Sale Items"
             ]
         },
         {
             "name": "Computer & Accessories",
             "subcategory": [
-                "Laptop",
-                "Gaming PC",
-                "Official Equipment"
+                "Laptops & Notebooks",
+                "Desktops & Monitors",
+                "Peripherals",
+                "Networking",
+                "Software",
+                "Gaming Accessories"
             ]
         },
         {
             "name": "Automobile",
             "subcategory": [
                 "Cars",
-                "Bikes"
+                "Motorcycles",
+                "Accessories",
+                "Spare Parts",
+                "Maintenance",
+                "Car Electronics"
             ]
         },
         {
             "name": "Kids & Toys",
             "subcategory": [
-                "Shoes & Bags",
-                "Baby Clothing",
-                "Girls Toys"
+                "Toys & Games",
+                "Clothing & Accessories",
+                "School Supplies",
+                "Baby Gear",
+                "Outdoor Play",
+                "Educational Toys"
             ]
         },
         {
             "name": "Sports",
             "subcategory": [
-                "Cycling",
-                "Sneakers",
-                "Swimming"
+                "Athletic Apparel",
+                "Footwear",
+                "Sports Equipment",
+                "Outdoor Recreation",
+                "Fitness Accessories",
+                "Team Sports Gear"
+            ]
+        },
+        {
+            "name": "Women Dress",
+            "subcategory": [
+                "Casual Dresses",
+                "Formal Dresses",
+                "Accessories",
+                "New Arrivals",
+                "Seasonal Collections",
+                "Sale Items"
             ]
         },
         {
             "name": "Jewelery",
             "subcategory": [
-                "Necklace",
-                "Gold",
-                "Earing"
+                "Necklaces",
+                "Earrings",
+                "Bracelets",
+                "Rings",
+                "Watches",
+                "Special Occasion Jewelry"
             ]
         },
         {
-            "name": "Cellphone & Tab",
+            "name": "Cell Phone",
             "subcategory": [
-                "Smartphone",
-                "Tablets",
-                "Accessories"
+                "Smartphones",
+                "Phone Accessories",
+                "Cases & Covers",
+                "Chargers & Cables",
+                "Bluetooth Devices",
+                "Mobile Gadgets"
             ]
         },
         {
             "name": "Furniture",
             "subcategory": [
-                "Sofa",
-                "Bed",
-                "Home Textile"
+                "Living Room Furniture",
+                "Bedroom Furniture",
+                "Home Decor",
+                "Kitchen & Dining",
+                "Office Furniture",
+                "Outdoor Furniture"
             ]
         }
     ]

@@ -53,7 +53,12 @@ class MessagesScreen extends StatelessWidget {
                           return ListTile(
                             onTap: (){
 
-                              Get.to(()=> ChatScreen());
+                              Get.to(()=> ChatScreen(),
+                                  arguments: [
+                                  data[index]['sender_Name'],
+                                  data[index]['fromId'],
+                                  ]
+                              );
                             },
                             title: boldText(text:data[index]['sender_Name'].toString(),
                               color: fontGrey,
