@@ -1,12 +1,15 @@
 
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../const/FireBase_const.dart';
 
 class StoreServices {
 
   //get users data
   static getProfile(uid){
-    return firestore.collection(vendorCollections).where('uid',isEqualTo: uid).snapshots();
+
+    return firestore.collection(vendorCollections).where('uid',isEqualTo: uid).get();
 
   }
 
@@ -30,6 +33,9 @@ static getAllOrders(uid) {
   }
 
 
+
+
+
   //get all chat messages
   static getChatMessages(docId)
   {
@@ -37,88 +43,57 @@ static getAllOrders(uid) {
   }
 
 
-//   //get products data
-//   static getProducts(category){
-//     return firestore.collection(productCollections).where('p_category',isEqualTo: category).snapshots();
-//
-//   }
-//
-//   //set sub category
-//
-//   static getSubCategoires(title)
-//   {
-//     return firestore.collection(productCollections).where('p_subcategory',isEqualTo: title).snapshots();
-//   }
-//
-//   ///
-// static getCart(uid)
-// {
-//   return firestore.collection(cartCollections).where('added_by',isEqualTo: uid).snapshots();
-// }
-//
-// //delete doc
-// static deleteCart(id) {
-//   return firestore.collection(cartCollections).doc(id).delete();
-// }
-//
+  // Calculate the total rating of all user-listed products
+  static Future<double> getTotalRating(uid) async {
+    try {
 
-//
-// //get all orders
-// static getOrders(uid) {
-//   return firestore.collection(orderCollections).where(
-//       'order_by', isEqualTo: uid).snapshots();
-// }
-//
-// //get wish list
-// static getWishList(uid) {
-//   return firestore.collection(productCollections).where(
-//       'p_wishList', arrayContains: uid).snapshots();
-// }
-//
-// //get all messages
-// static getAllMessages(uid) {
-//   return firestore.collection(chatCollections).where("fromId",isEqualTo: uid).snapshots();
-// }
-//
-// //get counts
-//   //get all counts details at ones in a list
-//   //filters
-// static getCounts(uid) async {
-// var res= await Future.wait([
-//   firestore.collection(cartCollections).where('added_by',isEqualTo: uid).get().then((value) {
-//     return value.docs.length;
-//   }),
-//     firestore.collection(productCollections).where(
-//   'p_wishList', arrayContains: uid).get().then((value) {
-//     return value.docs.length;
-//   }),
-//   firestore.collection(orderCollections).where('order_by',isEqualTo: uid).get().then((value) {
-//     return value.docs.length;
-//   }),
-//
-// ]);
-// return res;
-//
-//   }
-//
-//
-//
-//   //get all prodocts
-// static getAllProducts() {
-//   return firestore.collection(productCollections).snapshots();
-// }
-//
-//
-// //get featured products
-// static getFeaturedProducts() {
-//   return firestore.collection(productCollections).where(
-//       'is_featured', isEqualTo: true).snapshots();
-// }
-//
-// //get search products
-// static getSearchProducts(searchText) {
-//   return firestore.collection(productCollections).get();
-// }
+      QuerySnapshot productsSnapshot = await firestore
+          .collection(productCollections)
+          .where('vendor_id', isEqualTo: uid)
+          .get();
+
+      if (productsSnapshot.docs.isNotEmpty) {
+        double totalRating = 0.0;
+
+        for (QueryDocumentSnapshot productDoc in productsSnapshot.docs) {
+          // Assuming your product rating is stored as a double in the 'p_rating' field
+          double productRating = double.parse(productDoc['p_rating'].toString()) ;
+          totalRating += productRating;
+          print(totalRating.toString());
+        }
+
+        return totalRating;
+      } else {
+        print("No products found");
+        return 0.0; // No products found
+      }
+    } catch (e) {
+      print("Error calculating total rating: $e");
+      return 0.0;
+    }
+  }
+
+  static Future<int> getTotalSales(uid) async {
+    try {
+      QuerySnapshot productsSnapshot = await firestore
+          .collection(orderCollections)
+          .where('vendors', arrayContains: uid)
+          .get();
+
+      if (productsSnapshot.docs.isNotEmpty) {
+        int salesCount = productsSnapshot.docs.length;
+
+        return salesCount;
+      } else {
+        print("No sales found");
+        return 0; // No sales found
+      }
+    } catch (e) {
+      print("Error calculating total sales: $e");
+      return 0;
+    }
+  }
+
 
 
 

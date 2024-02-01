@@ -20,7 +20,7 @@ class OrderScreen extends StatelessWidget {
       backgroundColor: white,
       appBar: appBarPersonal(orders),
       body: StreamBuilder(
-        stream: StoreServices.getAllOrders(SessionController().userId),
+        stream: StoreServices.getAllOrders(currentUser!.uid),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
             return Center(
@@ -57,7 +57,7 @@ class OrderScreen extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.calendar_month,
                                 color: fontGrey,
                               ),
@@ -95,7 +95,7 @@ class OrderScreen extends StatelessWidget {
                         size: 14.0,
                         color: purpleColor,
                       ),
-                    ).box.margin(EdgeInsets.only(bottom: 4)).make();
+                    ).box.margin(const EdgeInsets.only(bottom: 4)).make();
                   }),
                 ),
               ),

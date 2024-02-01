@@ -6,22 +6,22 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../const/FireBase_const.dart';
 import '../views/Home/Home.dart';
 import '../views/auth_screen/login_screen.dart';
 import 'Session manager.dart';
 
-class SplashServices {
+class SplashServices
+{
   Future<void> isLogin(BuildContext context) async {
-    final FirebaseAuth auth = FirebaseAuth.instance;
 
     try {
-      final user = auth.currentUser;
 
-      if (user != null) {
 
-        SessionController().userId = user.uid.toString();
-        print("Hello");
-        print(SessionController().userId);
+      if (currentUser != null)
+      {
+
+        SessionController().userId = currentUser!.uid.toString();
         await Future.delayed(const Duration(seconds: 3));
         if(context.mounted)
           {

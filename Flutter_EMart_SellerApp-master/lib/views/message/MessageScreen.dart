@@ -23,7 +23,7 @@ class MessagesScreen extends StatelessWidget {
         ),
       ),
       body: StreamBuilder(
-        stream:StoreServices.getAllMessages(SessionController().userId),
+        stream:StoreServices.getAllMessages(currentUser!.uid),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
 
           if(!snapshot.hasData)

@@ -98,7 +98,7 @@ class ProfileController extends GetxController{
   uploadImage() async {
     setLoading2(true);
     var filename= basename(profileImagePath.value);
-    var destination = 'images/${SessionController().userId}/$filename';
+    var destination = 'images/${currentUser!.uid}/$filename';
     Reference ref = FirebaseStorage.instance.ref().child(destination);
     await ref.putFile(File(profileImagePath.value));
     url = await ref.getDownloadURL();
@@ -108,7 +108,7 @@ class ProfileController extends GetxController{
 
 
  updateProfile({name,password,imageUrl}) async {
- var store = firestore.collection(vendorCollections).doc(SessionController().userId);
+ var store = firestore.collection(vendorCollections).doc(currentUser!.uid);
  await store.set({
    'vendor_name': name,
     'password': password,
@@ -175,7 +175,7 @@ class ProfileController extends GetxController{
 
 
   updateShop({shopName,shopAddress,shopMobile,shopWebsite,shopDes}) async{
-    var store = firestore.collection(vendorCollections).doc(SessionController().userId);
+    var store = firestore.collection(vendorCollections).doc(currentUser!.uid);
 
     await store.set({
       'vendor_ShopName': shopName,

@@ -151,7 +151,7 @@ class ProductDetails extends StatelessWidget {
                       )
                       //total price
                     ],
-                  ).box.white.padding(EdgeInsets.all(8)).make(),
+                  ).box.white.padding(const EdgeInsets.all(8)).make(),
 
                   10.heightBox,
                   boldText(

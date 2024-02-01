@@ -21,7 +21,7 @@ class ChaTController extends GetxController {
   var friendId = Get.arguments[1];
 
   var senderName = Get.find<HomeController>().username;
-  var currentId = SessionController().userId;
+  var currentId = currentUser!.uid;
 
   var msgController = TextEditingController();
 

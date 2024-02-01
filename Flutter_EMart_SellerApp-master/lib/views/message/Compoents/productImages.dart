@@ -1,4 +1,4 @@
-import 'package:emart_seller/WidgetCommons/NormalText.dart';
+
 import 'package:emart_seller/const/const.dart';
 
 Widget productImages({required lable,onpress}){

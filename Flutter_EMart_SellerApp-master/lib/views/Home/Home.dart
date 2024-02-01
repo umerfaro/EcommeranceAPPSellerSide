@@ -20,14 +20,14 @@ class Home extends StatelessWidget {
     var homeController = Get.put(HomeController());
 
     var navScreens = [
-      HomeScreen(),
-      ProductScreen(),
-      OrderScreen(),
-      SettingScreen(),
+      const HomeScreen(),
+      const ProductScreen(),
+      const OrderScreen(),
+      const SettingScreen(),
     ];
 
     var bottomNavbar = [
-      BottomNavigationBarItem(
+      const BottomNavigationBarItem(
         icon: Icon(Icons.home_outlined,
         color: darkGrey,
           size: 27,

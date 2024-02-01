@@ -1,15 +1,19 @@
 
+import 'package:emart_seller/Services/Session%20manager.dart';
 import 'package:get/get.dart';
 
 import '../const/FireBase_const.dart';
+import '../services/StoreServices.dart';
 
 class HomeController extends GetxController {
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     // TODO: implement onInit
     getUsername();
-
+   await updateOrderCount();
+    await calculateTotalRating();
+    await updateTotalSales();
     super.onInit();
   }
 
@@ -30,6 +34,28 @@ class HomeController extends GetxController {
     username=n;
 
 
+  }
+
+  var orderCount = 0;
+
+   updateOrderCount() async {
+  await  StoreServices.getAllOrders(currentUser!.uid).listen((snapshot) {
+      orderCount = snapshot.docs.length;
+    });
+  }
+
+  var rating = 0.0;
+
+   calculateTotalRating() async {
+     rating = await StoreServices.getTotalRating(currentUser!.uid);
+
+  }
+
+  var totalSales = 0;
+
+  Future<void> updateTotalSales() async {
+    totalSales = await StoreServices.getTotalSales(currentUser!.uid);
+    // Do something with the updated total sales value, such as updating UI or storing it in a variable.
   }
 
 

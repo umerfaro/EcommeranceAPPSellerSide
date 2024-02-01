@@ -20,7 +20,7 @@ Widget productDropdown(hint,List<String>list,dropValue,ProductController control
             color: fontGrey,
           ),
 
-          value: dropValue== ''? null : dropValue.value,
+          value: dropValue.value == ''? null : dropValue.value,
           items: list.map((e){
             return DropdownMenuItem(value: e,child: e.toString().text.make(),
             );

@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emart_seller/Services/Session%20manager.dart';
+import 'package:emart_seller/Utils/Utils.dart';
 import 'package:emart_seller/WidgetCommons/LoadingIndicator.dart';
 import 'package:emart_seller/WidgetCommons/appBar.dart';
 import 'package:emart_seller/const/const.dart';
@@ -34,7 +36,7 @@ class ProductScreen extends StatelessWidget {
       backgroundColor:  white,
       appBar: appBarPersonal(products),
       body: StreamBuilder(
-        stream: StoreServices.getProducts(SessionController().userId),
+        stream: StoreServices.getProducts(currentUser!.uid),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot>  snapshot){
 
     if (!snapshot.hasData) {
@@ -59,7 +61,15 @@ class ProductScreen extends StatelessWidget {
                   data: data[index],
                 ));
               },
-              leading: Image.network(data[index]['p_images'][0],width: 100,height: 100,fit: BoxFit.cover,
+
+              leading: CachedNetworkImage(
+                imageUrl:  data[index]['p_images'][0],
+                width: 100,
+                height: 100,
+                fit: BoxFit.cover,
+                placeholder: (context, url) => Center(
+                  child: loadingIndicator(),
+                ),
               ),
               title: boldText(
                 text: data[index]['p_name'].toString(),
@@ -82,20 +92,47 @@ class ProductScreen extends StatelessWidget {
               ),
               trailing: VxPopupMenu(
                 menuBuilder: ()=>Column(
-                  children: List.generate(popUpMenuIcons.length, (index) => Padding(
+                  children: List.generate(popUpMenuIcons.length, (i) => Padding(
                     padding: const EdgeInsets.all(12),
                     child: Row(
 
                       children: [
-                        Icon(popUpMenuIcons[index],color: fontGrey,),
+                        Icon(popUpMenuIcons[i],color: data[index]["featured_id"]==currentUser!.uid && i==0 ? green:  fontGrey,),
                         10.widthBox,
                         normalText(
-                          text: popUpMenuTitles[index],
+                          text:data[index]["featured_id"]==currentUser!.uid && i==0 ?"Remove feature" :popUpMenuTitles[i],
                           size: 12.0,
                           color: fontGrey,
                         ),
                       ],
-                    ).onTap(() {
+                    ).onTap(() async {
+                      switch(i)
+                      {
+                        case 0:
+
+                          if(data[index]['is_featured']==true){
+
+                            controller.removeFeatured(data[index].id);
+                            Utils.toastMessage("Removed from featured");
+                          }else
+                          {
+                            controller.addFeatured(data[index].id);
+                            Utils.toastMessage("Added to featured");
+                          }
+
+                          break;
+                        case 1:
+
+
+
+                          break;
+                        case 2:
+
+                          await controller.removeProduct(data[index].id);
+                          Utils.toastMessage("Product Removed");
+
+                            break;
+                      }
 
                     }),
                   )),

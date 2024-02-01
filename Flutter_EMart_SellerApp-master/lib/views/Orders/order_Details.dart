@@ -117,9 +117,9 @@ class _OrderDetailsState extends State<OrderDetails> {
                           title: boldText(text: "Delivered",size: 16.0,color: purpleColor),
 
                         ),
-                        Divider(),
+                        const Divider(),
                       ],
-                    ).box.padding(EdgeInsets.all(8.0)).border(color: white).roundedSM.make(),
+                    ).box.padding(const EdgeInsets.all(8.0)).border(color: white).roundedSM.make(),
                   ),
 
                   ////
@@ -146,7 +146,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                           title2: "Delivery Status",
                           detail1: "Unpaid",
                           detail2: "Order Placed"),
-                      Divider(),
+                      const Divider(),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 8),
@@ -241,7 +241,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                       .box
                       .outerShadowMd
                       .white
-                      .margin(EdgeInsets.only(bottom: 4))
+                      .margin(const EdgeInsets.only(bottom: 4))
                       .make(),
                   10.heightBox,
                   Column(
@@ -250,7 +250,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                         children: [
 
                           boldText(text: "Subtotal",size: 16.0,color: purpleColor),
-                          Spacer(),
+                          const Spacer(),
                           "RS. ${widget.data["total_price"]}"
                               .text
                               .color(red)
@@ -262,7 +262,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                         children: [
 
                           boldText(text: "Tax",size: 16.0,color: purpleColor),
-                          Spacer(),
+                          const Spacer(),
                           boldText(text: "0",color: red),
                         ],
                       ),
@@ -270,7 +270,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                         children: [
 
                           boldText(text: "Discount",size: 16.0,color: purpleColor),
-                          Spacer(),
+                          const Spacer(),
                           boldText(text: "0",color: red),
                         ],
                       ),
@@ -281,7 +281,7 @@ class _OrderDetailsState extends State<OrderDetails> {
 
 
                           boldText(text: "Grand Total ",size: 16.0,color: purpleColor),
-                          Spacer(),
+                          const Spacer(),
                           "RS. ${widget.data["total_price"]}"
                               .text
                               .color(red)

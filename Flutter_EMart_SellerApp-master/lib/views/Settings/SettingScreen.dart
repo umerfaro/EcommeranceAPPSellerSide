@@ -33,7 +33,8 @@ class _SettingScreenState extends State<SettingScreen> {
       bottomNavigationBar: SizedBox(
         width: context.screenWidth - 40,
         child: customButtonWidget(
-          onPress: () async {
+          onPress: () async
+          {
             await Get.put(AuthController()).signOutMethod();
             Utils.toastMessage(logOut);
             SessionController().logout();
@@ -73,8 +74,8 @@ class _SettingScreenState extends State<SettingScreen> {
 
       ),
 
-      body: StreamBuilder(
-        stream:StoreServices.getProfile(SessionController().userId),
+      body: FutureBuilder(
+        future:StoreServices.getProfile(currentUser!.uid),
         builder: (BuildContext context,AsyncSnapshot<QuerySnapshot>  snapshot ){
 
           if(!snapshot.hasData)
@@ -96,6 +97,9 @@ class _SettingScreenState extends State<SettingScreen> {
               imageUrl:  profileController.snapshotData['imageUrl'].toString(),
               width: 70,
               fit: BoxFit.cover,
+                    placeholder: (context, url) => Center(
+                      child: loadingIndicator(),
+                    ),
             ).box.roundedFull.clip(Clip.antiAlias).make(),
 
                   //leading: Image.asset(imgProduct).box.roundedFull.clip(Clip.antiAlias).make(),
@@ -112,7 +116,7 @@ class _SettingScreenState extends State<SettingScreen> {
 
 
                 ),
-                Divider(),
+                const Divider(),
                 10.heightBox,
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -125,13 +129,13 @@ class _SettingScreenState extends State<SettingScreen> {
                           case 0:
                             {
                               // Get.toNamed(editProfile);
-                              Get.to(()=> Shopsetting());
+                              Get.to(()=> const Shopsetting());
                               break;
                             }
                           case 1:
                             {
                               // Get.toNamed(editProfile);
-                              Get.to(()=> MessagesScreen());
+                              Get.to(()=> const MessagesScreen());
                               break;
                             }
 
