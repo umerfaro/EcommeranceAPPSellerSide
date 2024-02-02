@@ -135,7 +135,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           case 1:
                             {
                               // Get.toNamed(editProfile);
-                              Get.to(()=> const MessagesScreen());
+                              Get.to(()=> const MessagesScreen(),);
                               break;
                             }
 

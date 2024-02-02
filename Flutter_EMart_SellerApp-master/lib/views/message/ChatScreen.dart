@@ -38,8 +38,7 @@ class ChatScreen extends StatelessWidget {
                    child: loadingIndicator(),
                  ): Expanded(
                      child: StreamBuilder(
-                       stream: StoreServices.getChatMessages(
-                           chatController.charDocId.toString()),
+                       stream: StoreServices.getChatMessages(chatController.charDocId.toString()),
                        builder: (BuildContext context,
                            AsyncSnapshot<QuerySnapshot> snapshot)
                        {

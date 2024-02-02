@@ -6,6 +6,7 @@ import'package:emart_seller/const/const.dart';
 
 import '../Services/Session manager.dart';
 import '../Utils/Utils.dart';
+import '../views/Home/Home.dart';
 
 class AuthController extends  GetxController{
 
@@ -63,6 +64,25 @@ class AuthController extends  GetxController{
     }
     return null;
   }
+
+//   void Login(data, BuildContext context) {
+//     loginButtonEnable.value = true;
+//     auth
+//         .signInWithEmailAndPassword(
+//         email: data["email"], password: data["password"])
+//         .then((value) {
+// //calling singleton class
+//       SessionController().userId= value.user!.uid.toString();
+//       loginButtonEnable.value = false;
+//       Utils.toastMessage("Login Successfully");
+//       Get.offAll(() => const Home());
+//     }
+//     ).onError((error, stackTrace) {
+//       loginButtonEnable.value = false;
+//       Utils.flushBarErrorMessage(error.toString(), context);
+//     });
+//   }
+
 
 
   Future<void> signOutMethod() async {

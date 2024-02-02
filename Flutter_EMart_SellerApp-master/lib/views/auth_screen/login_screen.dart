@@ -7,6 +7,7 @@ import "package:emart_seller/views/Home/Home.dart";
 import "package:get/get.dart";
 
 
+import "../../Services/Session manager.dart";
 import "../../Utils/Utils.dart";
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -126,13 +127,22 @@ class LoginScreen extends StatelessWidget {
                        {
 
 
+                         // Map data = {
+                         //   "email": controller.emailController.text.toString(),
+                         //   "password": controller.passwordController.text.toString()
+                         // };
+                         // controller.Login(data, context);
+
+
                          await controller.loginMethod().then((value)
                          {
                            if (value != null) {
+                             SessionController().userId = value.user!.uid.toString();
                              Utils.toastMessage(loginSuccess);
 
                              Get.offAll(() => const Home());
                              controller.loginButtonEnable.value = false;
+
 
 
                            } else {

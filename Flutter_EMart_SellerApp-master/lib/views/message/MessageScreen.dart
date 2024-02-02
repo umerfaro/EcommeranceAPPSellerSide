@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:emart_seller/Services/Session%20manager.dart';
+
 import 'package:emart_seller/WidgetCommons/LoadingIndicator.dart';
 import 'package:emart_seller/WidgetCommons/NormalText.dart';
 import 'package:emart_seller/const/const.dart';
@@ -7,6 +7,8 @@ import 'package:emart_seller/services/StoreServices.dart';
 import 'package:emart_seller/views/message/ChatScreen.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
+
+import '../../Controller/ChatController.dart';
 
 class MessagesScreen extends StatelessWidget {
   const MessagesScreen({super.key});
@@ -53,11 +55,13 @@ class MessagesScreen extends StatelessWidget {
                           return ListTile(
                             onTap: (){
 
-                              Get.to(()=> ChatScreen(),
+                              Get.to(()=> const ChatScreen(),
                                   arguments: [
                                   data[index]['sender_Name'],
                                   data[index]['fromId'],
                                   ]
+
+
                               );
                             },
                             title: boldText(text:data[index]['sender_Name'].toString(),

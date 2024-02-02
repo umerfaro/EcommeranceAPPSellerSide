@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emart_seller/Controller/HomeController.dart';
-import 'package:emart_seller/Services/Session%20manager.dart';
 import 'package:emart_seller/WidgetCommons/DashBoardButton.dart';
 import 'package:emart_seller/WidgetCommons/NormalText.dart';
 import 'package:emart_seller/WidgetCommons/appBar.dart';
@@ -71,8 +70,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 dashBoardButton(context,title:rating,count: controller.rating.toString(),
                   icon: icStar,
                 ),
-                dashBoardButton(context,title:totalSales,count: controller.totalSales.toString()
-                  ,icon: icOrders,
+                dashBoardButton(context,title:totalSales,count:controller.totalSales.toString(),
+                  icon: icOrders,
                 ),
               ],
             ),

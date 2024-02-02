@@ -7,17 +7,22 @@ import "package:emart_seller/views/Products/ProductsScreen.dart";
 import "package:emart_seller/views/Settings/SettingScreen.dart";
 import "package:get/get.dart";
 
-class Home extends StatelessWidget {
+import "../../WidgetCommons/exist_dialog.dart";
+
+class Home extends StatefulWidget {
   const Home({super.key});
 
+  @override
+  State<Home> createState() => _HomeState();
+}
 
-
-
-
+class _HomeState extends State<Home>
+{
+  var homeController = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
 
-    var homeController = Get.put(HomeController());
+
 
     var navScreens = [
       const HomeScreen(),
@@ -77,11 +82,32 @@ class Home extends StatelessWidget {
         ),
       ),
       backgroundColor: white,
-      body: Obx(
-        ()=> Column(children: [
-          Expanded(child: navScreens.elementAt(homeController.naveIndex.value)),
-        ]),
+      body:
+      PopScope(
+        canPop: false  ,
+
+        onPopInvoked: (didPop) {
+          // Handle back button press
+          // Handle back button press
+          if (didPop) {
+            //SystemNavigator.pop();
+            return ;
+
+          }
+
+          showDialog(
+              barrierDismissible: false,
+              context: context, builder: (context)=> exitDialogWidget(context));
+        },
+
+
+        child: Column(children: [
+            Expanded(child: Obx (()=> navScreens.elementAt(homeController.naveIndex.value))
+            ),
+          ]
+          ),
       ),
+
     );
   }
 }

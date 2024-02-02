@@ -10,6 +10,7 @@ class OrderController extends GetxController{
    var onTheWayOrders = false.obs;
     var deliveredOrders = false.obs;
 
+
   var orders= [];
 //get orders related to vendor
   getOrders(data) async{

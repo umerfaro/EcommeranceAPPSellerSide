@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../Services/Session manager.dart';
 import '../const/FireBase_const.dart';
 import 'HomeController.dart';
 
@@ -15,6 +14,10 @@ class ChaTController extends GetxController {
     getChatId();
     super.onInit();
   }
+
+
+
+
 
   var chats = firestore.collection(chatCollections);
   var friendName = Get.arguments[0];
