@@ -3,6 +3,8 @@ import 'package:emart_seller/views/SplashScreen/SplashScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 
+import 'Controller/HomeController.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,6 +20,8 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: appname,
+
+
       theme: ThemeData(
           scaffoldBackgroundColor: Colors.transparent,
           appBarTheme: const AppBarTheme(
@@ -30,4 +34,6 @@ class MyApp extends StatelessWidget {
       home: const SplashScreen(),
     );
   }
+
+
 }

@@ -73,25 +73,25 @@ static getAllOrders(uid) {
     }
   }
 
-  static Future<int> getTotalSales(uid) async {
-    try {
-      QuerySnapshot productsSnapshot = await firestore
+  static getTotalSales(uid) async {
+
+      return await firestore
           .collection(orderCollections)
           .where('vendors', arrayContains: uid)
           .get();
 
-      if (productsSnapshot.docs.isNotEmpty) {
-        int salesCount = productsSnapshot.docs.length;
-
-        return salesCount;
-      } else {
-        print("No sales found");
-        return 0; // No sales found
-      }
-    } catch (e) {
-      print("Error calculating total sales: $e");
-      return 0;
-    }
+    //   if (productsSnapshot.docs.isNotEmpty) {
+    //     int salesCount = productsSnapshot.docs.length;
+    //
+    //     return salesCount;
+    //   } else {
+    //     print("No sales found");
+    //     return 0; // No sales found
+    //   }
+    // } catch (e) {
+    //   print("Error calculating total sales: $e");
+    //   return 0;
+    // }
   }
 
 

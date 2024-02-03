@@ -22,29 +22,41 @@ class ProductDetails extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            VxSwiper.builder(
-              viewportFraction: 1.0,
-              aspectRatio: 16 / 9,
-              autoPlay: true,
-              height: 350,
-              itemCount: data['p_images'].length,
-              itemBuilder: (context, index) {
-                return CachedNetworkImage(
-                  imageUrl: data["p_images"][index],
-                  width: double.infinity,
-                  fit: BoxFit.fill,
-                  placeholder: (context, url) => Center(
-                    child: loadingIndicator(),
-                  ),
-                )
-                    .box
-                    .clip(Clip.antiAlias)
-                    .margin(const EdgeInsets.symmetric(horizontal: 2))
-                    .make();
-              },
-            ),
+          VxSwiper.builder(
+          viewportFraction: 1.0,
+          aspectRatio: 16 / 9,
+          autoPlay: true,
+          height: 350,
+          itemCount: data['p_images'].length,
+          itemBuilder: (context, index) {
+            return CachedNetworkImage(
+              imageUrl: data["p_images"][index],
+              width: double.infinity,
+              fit: BoxFit.cover,
+              placeholder: (context, url) => Center(
+                child: loadingIndicator(),
+              ),
+            ).box
+                .clip(Clip.antiAlias)
+                .margin(const EdgeInsets.symmetric(horizontal: 2))
+                .withDecoration(BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ))
+                .make();
+          },
+        ),
 
-            10.heightBox,
+
+
+        10.heightBox,
             //Title
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -96,10 +108,31 @@ class ProductDetails extends StatelessWidget {
                       ),
                     ],
                   ),
-                  boldText(
-                    text: data['p_price'],
-                    size: 16.0,
-                    color: red,
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      boldText(
+                        text: "Price: ",
+                        size: 16.0,
+                        color: darkFontGrey,
+                      ),
+                      boldText(
+                        text: " Rs.",
+                        size: 16.0,
+                        color: red,
+                      ),
+                      boldText(
+                        text: data['p_price'],
+                        size: 16.0,
+                        color: red,
+                      ),
+                      boldText(
+                        text: " /-",
+                        size: 16.0,
+                        color: red,
+                      )
+
+                    ],
                   ),
                   10.heightBox,
                   Column(
